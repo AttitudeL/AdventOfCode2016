@@ -1,5 +1,6 @@
 """
 Advent of code day two
+Reference: https://adventofcode.com/2016/day/2
 """
 import os
 
@@ -20,7 +21,7 @@ KEYBOARD_PART_TWO = [
     [None, None, 'D', None, None]
 ]
 
-def load_instructions(input_file):
+def load_input(input_file):
     """
     Read from input file and parse them into individual instructions
     """
@@ -90,7 +91,7 @@ def main():
     Main function
     """
     current_file = os.path.splitext(os.path.basename(__file__))[0]
-    instructions = load_instructions(current_file + INPUT_FILE_EXTENSION)
+    instructions = load_input(current_file + INPUT_FILE_EXTENSION)
     print "Part one answer:", part_one(instructions, KEYBOARD_PART_ONE)
     print "Part two answer:", part_two(instructions, KEYBOARD_PART_TWO)
 

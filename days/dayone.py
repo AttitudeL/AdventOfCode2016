@@ -1,5 +1,6 @@
 """
 Advent of code day one
+Reference: https://adventofcode.com/2016/day/1
 """
 import os
 
@@ -29,7 +30,7 @@ DIRECTION_ROTATION = {
     }
 }
 
-def load_instructions(input_file):
+def load_input(input_file):
     """
     Read from input file and parse them into individual instructions
     """
@@ -123,7 +124,7 @@ def main():
     Main function
     """
     current_file = os.path.splitext(os.path.basename(__file__))[0]
-    instructions = load_instructions(current_file + INPUT_FILE_EXTENSION)
+    instructions = load_input(current_file + INPUT_FILE_EXTENSION)
     read_instructions(instructions)
     print "Part one answer:", part_one()
     print "Part two answer:", part_two()
