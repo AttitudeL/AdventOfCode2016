@@ -8,7 +8,10 @@ import operator
 INPUT_DIRECTORY = "../inputs/"
 INPUT_FILE_EXTENSION = "_input.txt"
 
-def load_input(input_file):
+LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',\
+           'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+def load_input_part_one(input_file):
     """
     Read from input file and parse them into tuple with format (name, sector_id, check_sum)
     """
@@ -59,14 +62,44 @@ def part_one(rooms):
             sector_id_sum += room[1]
     return sector_id_sum
 
+def load_input_part_two(input_file):
+    """
+    Read from input file and parse them into tuple with format (name, sector_id, check_sum)
+    """
+    rooms = []
+    relative_path = os.path.join(os.path.dirname(__file__), INPUT_DIRECTORY + input_file)
+    with open(relative_path, 'r') as opened_file:
+        content = opened_file.readlines()
+    for line in content:
+        name = line[:line.rfind('-')]
+        sector_id = int(line[:line.find('[')].split('-')[-1])
+        check_sum = line[line.find('[') + 1:line.find(']')]
+        rooms.append((name, sector_id, check_sum))
+    return rooms
+
+def part_two(rooms):
+    """
+    What is the sector ID of the room where North Pole objects are stored?
+    """
+    for room in rooms:
+        name = ""
+        for letter in room[0]:
+            if letter == '-':
+                name += " "
+            else:
+                name += LETTERS[(LETTERS.index(letter) + room[1]) % 26]
+        if name == "northpole object storage":
+            return room[1]
+
 def main():
     """
     Main function
     """
     current_file = os.path.splitext(os.path.basename(__file__))[0]
-    rooms = load_input(current_file + INPUT_FILE_EXTENSION)
+    rooms = load_input_part_one(current_file + INPUT_FILE_EXTENSION)
     print "Part one answer:", part_one(rooms)
-    #print "Part one answer:", part_two(digits)
+    rooms = load_input_part_two(current_file + INPUT_FILE_EXTENSION)
+    print "Part one answer:", part_two(rooms)
 
 if __name__ == "__main__":
     main()
